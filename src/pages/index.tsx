@@ -25,11 +25,14 @@ const EventFeed = () => {
   if (!data) return <div>Something went wrong</div>;
 
   return (
-    <div className="overflow-y-scroll">
+    <div className="flex justify-center overflow-y-scroll">
       {data && (
         <ul role="list" className="divide-y divide-gray-100">
           {data.map((dataItem) => (
-            <li key={dataItem.id} className="mt-6 flex max-w-md gap-x-4">
+            <li
+              key={dataItem.id}
+              className="m-4 flex max-w-md justify-center gap-x-4 rounded-2xl bg-gray-50 p-3 py-10 text-center ring-1 ring-inset"
+            >
               <div className="flex gap-x-6">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
                   {dataItem.title}
@@ -122,7 +125,7 @@ export default function Home() {
   return (
     <>
       <main className="m-4">
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex-col items-center justify-center">
           <br />
 
           <EventItemCreation />
