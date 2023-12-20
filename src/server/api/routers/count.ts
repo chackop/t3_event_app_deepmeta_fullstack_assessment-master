@@ -18,4 +18,13 @@ export const countRouter = createTRPCRouter({
         },
       });
     }),
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.eventItem.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

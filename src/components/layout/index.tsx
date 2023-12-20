@@ -7,9 +7,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <>
       <Appbar />
 
-      <div className="relative top-16 float-right w-full overflow-hidden">
-        {children}
-      </div>
+      <div className="relative w-full overflow-hidden">{children}</div>
     </>
   );
 };

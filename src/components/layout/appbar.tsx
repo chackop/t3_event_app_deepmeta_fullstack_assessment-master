@@ -12,6 +12,10 @@ const Appbar: React.FC = () => {
           height={27.8}
           width={150}
         />
+
+        <div className="flex w-full justify-center">
+          <h1 className="text-xl font-medium">Welcome To Event App!</h1>
+        </div>
       </div>
     </>
   );
