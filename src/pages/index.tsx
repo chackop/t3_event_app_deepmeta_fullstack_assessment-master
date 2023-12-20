@@ -1,11 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import { LoadingPage, LoadingSpinner } from "~/components/loading/loading";
 import { api } from "~/utils/api";
 
-const EventFeed = () => {
-  const { data, isLoading } = api.count.getAll.useQuery();
+const EventItem = ({ id, title }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: id });
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
 
   const ctx = api.useContext();
 
@@ -14,6 +26,36 @@ const EventFeed = () => {
       void ctx.count.getAll.invalidate();
     },
   });
+
+  return (
+    <li
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="m-4 flex max-w-md justify-center gap-x-4 rounded-2xl bg-gray-50 p-3 py-10 text-center ring-1 ring-inset"
+    >
+      <div className="flex gap-x-6">
+        <p className="text-sm font-semibold leading-6 text-gray-900">{title}</p>
+      </div>
+
+      <button
+        className="flex-none rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+        onClick={() => mutate({ id: id })}
+      >
+        Delete
+      </button>
+
+      {/* <button className="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+  Edit
+</button>
+ */}
+    </li>
+  );
+};
+
+const EventFeed = () => {
+  const { data, isLoading } = api.count.getAll.useQuery();
 
   if (isLoading)
     return (
@@ -24,34 +66,31 @@ const EventFeed = () => {
 
   if (!data) return <div>Something went wrong</div>;
 
+  const onDragEndHandler = (event: unknown) => {
+    console.log(event);
+  };
+
   return (
     <div className="flex justify-center overflow-y-scroll">
       {data && (
         <ul role="list" className="divide-y divide-gray-100">
-          {data.map((dataItem) => (
-            <li
-              key={dataItem.id}
-              className="m-4 flex max-w-md justify-center gap-x-4 rounded-2xl bg-gray-50 p-3 py-10 text-center ring-1 ring-inset"
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEndHandler}
+          >
+            <SortableContext
+              items={data}
+              strategy={verticalListSortingStrategy}
             >
-              <div className="flex gap-x-6">
-                <p className="text-sm font-semibold leading-6 text-gray-900">
-                  {dataItem.title}
-                </p>
-              </div>
-
-              <button
-                className="flex-none rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
-                onClick={() => mutate({ id: dataItem.id })}
-              >
-                Delete
-              </button>
-
-              {/* <button className="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
-                Edit
-              </button>
-               */}
-            </li>
-          ))}
+              {data.map((dataItem) => (
+                <EventItem
+                  key={dataItem.id}
+                  id={dataItem.id}
+                  title={dataItem.title}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
         </ul>
       )}
     </div>
