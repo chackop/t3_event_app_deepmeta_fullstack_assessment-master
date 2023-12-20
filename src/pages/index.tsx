@@ -30,7 +30,7 @@ const EventItemCreation = () => {
 
   const ctx = api.useContext();
 
-  const { mutate, isLoading } = api.post.create.useMutation({
+  const { mutate, isLoading } = api.count.create.useMutation({
     onSuccess: () => {
       setInput("");
       void ctx.count.getAll.invalidate();
