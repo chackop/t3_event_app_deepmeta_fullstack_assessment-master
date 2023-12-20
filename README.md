@@ -78,3 +78,11 @@ If you are not familiar with the different technologies used in this project, pl
 - [tRPC](https://trpc.io)
 
 Follow deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information on deployment.
+
+# Demo
+
+Basic adding, deletion of event items
+![Basic Adding](demo/ScheduleAppBasicDemo.gif)
+
+Dragging Items
+![Dragging Items](demo/ScheduleAppDragging.gif)

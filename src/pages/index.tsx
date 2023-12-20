@@ -88,23 +88,23 @@ const EventFeed = () => {
     <div className="flex justify-center overflow-y-scroll">
       {data && (
         <ul role="list" className="divide-y divide-gray-100">
-          <DndContext
+          {/* <DndContext
             collisionDetection={closestCenter}
             onDragEnd={onDragEndHandler}
           >
             <SortableContext
               items={data}
               strategy={verticalListSortingStrategy}
-            >
-              {data.map((dataItem) => (
-                <EventItem
-                  key={dataItem.id}
-                  id={dataItem.id}
-                  title={dataItem.title}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
+            > */}
+          {data.map((dataItem) => (
+            <EventItem
+              key={dataItem.id}
+              id={dataItem.id}
+              title={dataItem.title}
+            />
+          ))}
+          {/* </SortableContext>
+          </DndContext> */}
         </ul>
       )}
     </div>
