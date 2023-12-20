@@ -66,8 +66,22 @@ const EventFeed = () => {
 
   if (!data) return <div>Something went wrong</div>;
 
+  // const ctx = api.useContext();
+
+  // const { mutate } = api.count.updateByID.useMutation({
+  //   onSuccess: () => {
+  //     void ctx.count.getAll.invalidate();
+  //   },
+  // });
+
   const onDragEndHandler = (event: unknown) => {
     console.log(event);
+    const { active, over } = event;
+    if (active.id === over.id) {
+      return;
+    }
+
+    // mutate({ id: active.id });
   };
 
   return (
