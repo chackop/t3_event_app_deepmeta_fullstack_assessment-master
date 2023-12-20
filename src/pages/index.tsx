@@ -11,7 +11,7 @@ import { useState } from "react";
 import { LoadingPage, LoadingSpinner } from "~/components/loading/loading";
 import { api } from "~/utils/api";
 
-const EventItem = ({ id, title }) => {
+const EventItem = ({ id, title }: { id: string; title: string }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
   const style = {
@@ -74,15 +74,15 @@ const EventFeed = () => {
   //   },
   // });
 
-  const onDragEndHandler = (event: unknown) => {
-    console.log(event);
-    const { active, over } = event;
-    if (active.id === over.id) {
-      return;
-    }
+  // const onDragEndHandler = (event: unknown) => {
+  //   console.log(event);
+  //   const { active, over } = event;
+  //   if (active.id === over.id) {
+  //     return;
+  //   }
 
-    // mutate({ id: active.id });
-  };
+  //   mutate({ id: active.id });
+  // };
 
   return (
     <div className="flex justify-center overflow-y-scroll">
