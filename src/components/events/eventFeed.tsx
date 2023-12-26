@@ -14,25 +14,25 @@ const EventFeed = () => {
 
   const ctx = api.useContext();
 
-  //   const { mutate } = api.count.updatePriority.useMutation({
-  //     onSuccess: () => {
-  //       void ctx.count.getAll.invalidate();
-  //     },
-  //   });
+  const { mutate } = api.count.updatePriority.useMutation({
+    onSuccess: () => {
+      void ctx.count.getAll.invalidate();
+    },
+  });
 
-  //   const onDragEndHandler = (event: DragEndEvent) => {
-  //     console.log(event);
-  //     const { active, over } = event;
-  //     if (over && active.id === over.id) {
-  //       return;
-  //     }
+  const onDragEndHandler = (event: DragEndEvent) => {
+    console.log(event);
+    const { active, over } = event;
+    if (over && active.id === over.id) {
+      return;
+    }
 
-  //     const activeItem = data?.find((item) => item.id === active.id) ?? null;
+    const activeItem = data?.find((item) => item.id === active.id) ?? null;
 
-  //     if (activeItem) {
-  //       mutate({ id: activeItem.id, priority: activeItem.priority });
-  //     }
-  //   };
+    if (activeItem) {
+      mutate({ id: activeItem.id, priority: activeItem.priority });
+    }
+  };
 
   if (!data) return <div>Something went wrong</div>;
 
@@ -44,9 +44,9 @@ const EventFeed = () => {
     );
 
   return (
-    <div className="overflow-y-scroll">
+    <div className="w-full">
       {data && (
-        <ul role="list" className="divide-y divide-gray-100">
+        <ul role="list" className="divide-y divide-gray-100 overflow-y-scroll">
           {/* <DndContext
             collisionDetection={closestCenter}
             onDragEnd={onDragEndHandler}

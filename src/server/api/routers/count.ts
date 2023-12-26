@@ -9,12 +9,14 @@ export const countRouter = createTRPCRouter({
         orderBy: [{ priority: "desc" }],
       })
   ),
+
   getByID: publicProcedure.input(z.object({ id: z.string() })).query(
     async ({ ctx, input }) =>
       await ctx.prisma.eventItem.findUnique({
         where: { id: input.id },
       })
   ),
+
   getPriorityMaxCount: publicProcedure.query(
     async ({ ctx }) =>
       await ctx.prisma.eventItem.aggregate({
@@ -26,6 +28,7 @@ export const countRouter = createTRPCRouter({
         },
       })
   ),
+
   create: publicProcedure
     .input(z.object({ priority: z.number(), title: z.string().min(6) }))
     .mutation(
