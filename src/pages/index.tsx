@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <main className="m-4">
-        <div className="flex grow flex-col items-center">
+        <div className="flex grow flex-col items-center justify-center">
           <br />
 
           <EventItemCreation />

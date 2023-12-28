@@ -29,7 +29,7 @@ const EventEditItem = ({ id, setEditMode, title }: EventEditItemProps) => {
   return (
     <div>
       <form action="#" method="POST" className="w-full">
-        <div>
+        <div className="m-4">
           <label
             htmlFor="item-name"
             className="block text-sm font-semibold leading-6 text-gray-900"
@@ -57,11 +57,12 @@ const EventEditItem = ({ id, setEditMode, title }: EventEditItemProps) => {
             }}
             disabled={isLoading}
           />
-
+        </div>
+        <div className="m-4">
           {input !== "" && !isLoading && (
             <button
               onClick={submitHandler}
-              className="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="m-4 flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Submit
             </button>
@@ -69,17 +70,17 @@ const EventEditItem = ({ id, setEditMode, title }: EventEditItemProps) => {
 
           <button
             onClick={() => setEditMode(false)}
-            className="flex-none rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+            className="m-4 flex-none rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
           >
             Cancel
           </button>
-
-          {isLoading && (
-            <div className="flex items-center justify-center">
-              <LoadingSpinner size={20} />
-            </div>
-          )}
         </div>
+
+        {isLoading && (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner size={20} />
+          </div>
+        )}
       </form>
     </div>
   );
